@@ -1,4 +1,4 @@
-package com.web.repositories;
+package com.web.museu.repositories;
 
 import com.web.museu.domain.Categoria;
 import org.springframework.data.jpa.repository.JpaRepository;
