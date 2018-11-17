@@ -21,9 +21,13 @@ public class Categoria implements Serializable {
     private List<Peca> Pecas;
 
 
+    public Categoria(){}
 
+    public Categoria(Integer id, String descricao){
 
-
+        this.setId(id);
+        this.setDescricao(descricao);
+    }
 
     public Integer getId() {
         return id;
