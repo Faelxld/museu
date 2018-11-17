@@ -21,8 +21,7 @@ public class Ordem implements Serializable {
                     referencedColumnName="id")})
     private List<Peca> Pecas;
 
-
-
+    public Ordem(){}
 
     public int getId() {
         return id;

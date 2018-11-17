@@ -44,7 +44,13 @@ public class Evento implements Serializable {
                     referencedColumnName="id")},
             inverseJoinColumns={@JoinColumn(name="situacao_id",
                     referencedColumnName="id")})
-   private SituacaoEvento idSituacaoEvento;
+    private SituacaoEvento idSituacaoEvento;
+
+    public Evento(){}
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getIdEvento() {
         return id;

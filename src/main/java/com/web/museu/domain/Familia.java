@@ -18,6 +18,7 @@ public class Familia implements Serializable {
                     referencedColumnName="id")})
     private List<Peca> Pecas;
 
+    public Familia(){}
 
     public int getId() {
         return id;

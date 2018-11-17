@@ -63,6 +63,8 @@ public class Peca implements Serializable {
     private EstadoConservacao idEstadoConservacao;
 
 
+    public Peca(){}
+
     public int getIdPeca() {
         return id;
     }

@@ -17,6 +17,7 @@ public class SituacaoEvento {
                     referencedColumnName="id")})
     private List<Evento> Eventoss;
 
+    public SituacaoEvento(){}
 
     public int getId() {
         return id;

@@ -3,6 +3,8 @@ package com.web.museu.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
+
 @Entity
 public class Entidade implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -20,7 +22,16 @@ public class Entidade implements Serializable {
                     referencedColumnName="id")})
     private TipoEntidade tipoEntidade;
     @ManyToMany
-    private List<Peca> Pecas;
+    private List<Peca> pecas;
+
+    public Entidade() {}
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNome(), tipoEntidade, pecas, Eventos);
+    }
+
     @OneToMany
     @JoinTable(name="entidade_evento",
             joinColumns={@JoinColumn(name="entidade_id",

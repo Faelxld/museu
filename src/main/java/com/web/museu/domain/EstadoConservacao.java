@@ -20,7 +20,7 @@ public class EstadoConservacao {
                     referencedColumnName="id")})
     private List<Peca> Pecas;
 
-
+    public EstadoConservacao(){}
 
     public int getId() {
         return id;

@@ -21,6 +21,7 @@ public class Regiao implements Serializable {
     private List<Peca> Pecas;
 
 
+    public Regiao(){}
 
     public int getId() {
         return id;

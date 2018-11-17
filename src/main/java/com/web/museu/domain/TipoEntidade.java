@@ -19,6 +19,7 @@ public class TipoEntidade {
                     referencedColumnName="id")})
     private List<Entidade> Entidades;
 
+    public TipoEntidade(){}
 
     public int getId() {
         return id;

@@ -18,6 +18,7 @@ public class Local {
                     referencedColumnName="id")})
     private List<Evento> Eventos;
 
+    public Local(){}
 
     public int getId() {
         return id;
