@@ -34,6 +34,7 @@ public Categoria salvar(Categoria categoria){
 public Categoria atualizar(Categoria categoria){
     return repository.saveAndFlush(categoria);
 }
+
 public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = new PageRequest(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return repository.findAll(pageRequest);
