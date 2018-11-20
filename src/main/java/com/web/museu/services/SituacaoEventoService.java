@@ -1,11 +1,15 @@
 package com.web.museu.services;
 
 import com.web.museu.domain.SituacaoEvento;
+import com.web.museu.dto.SituacaoEventoDTO;
 import com.web.museu.repositories.SituacaoEventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 
 @Service
@@ -38,5 +42,14 @@ public SituacaoEvento salvar(SituacaoEvento situacaoevento){
 public SituacaoEvento atualizar(SituacaoEvento situacaoevento){
    return repository.saveAndFlush(situacaoevento);
 }
+
+
+public Page<SituacaoEvento> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+        PageRequest pageRequest = new PageRequest(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        return repository.findAll(pageRequest);
+    }
+public SituacaoEvento fromDTO(SituacaoEventoDTO objDto) {
+        return new SituacaoEvento(objDto.getId(), objDto.getDescricao(),objDto.getEventos());
+    }
 
 }

@@ -35,14 +35,14 @@ public class CategoriaResource {
         Categoria obj = service.fromDTO(objDto);
         obj = service.salvar(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(obj.getId()).toUri();
+                .path("/{id}").buildAndExpand(obj.getIdCategoria()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @RequestMapping(value="/{id}", method=RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) {
         Categoria obj = service.fromDTO(objDto);
-        obj.setId(id);
+        obj.setIdCategoria(id);
         obj = service.atualizar(obj);
         return ResponseEntity.noContent().build();
     }

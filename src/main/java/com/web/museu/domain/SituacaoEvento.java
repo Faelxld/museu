@@ -10,14 +10,18 @@ public class SituacaoEvento {
 
     private String descricao;
     @OneToMany
-    @JoinTable(name="evento_situacao",
-            joinColumns={@JoinColumn(name="situacao_id",
-                    referencedColumnName="id")},
-            inverseJoinColumns={@JoinColumn(name="evento_id",
-                    referencedColumnName="id")})
-    private List<Evento> Eventoss;
+    private List<Evento> Eventos;
 
     public SituacaoEvento(){}
+
+    public SituacaoEvento(int id, String descricao, List<Evento> Eventos) {
+        this.id = id;
+        this.descricao = descricao;
+        this.Eventos = Eventos;
+    }
+    
+    
+    
 
     public int getId() {
         return id;
@@ -34,4 +38,14 @@ public class SituacaoEvento {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    public List<Evento> getEventos() {
+        return Eventos;
+    }
+
+    public void setEventoss(List<Evento> Eventos) {
+        this.Eventos = Eventos;
+    }
+    
+    
 }

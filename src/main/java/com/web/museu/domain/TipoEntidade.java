@@ -1,32 +1,55 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.web.museu.domain;
 
-import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *
+ * @author Denner
+ */
 @Entity
-public class TipoEntidade {
+@Table(name = "TipoEntidade")
+public class TipoEntidade implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idTipoEntidade")
+    private Integer idTipoEntidade;
+    @Column(name = "descricao")
     private String descricao;
-    @OneToMany
-    @JoinTable(name="entidade_tipo",
-            joinColumns={@JoinColumn(name="tipo_id",
-                    referencedColumnName="id")},
-            inverseJoinColumns={@JoinColumn(name="entidade_id",
-                    referencedColumnName="id")})
-    private List<Entidade> Entidades;
 
-    public TipoEntidade(){}
-
-    public int getId() {
-        return id;
+    public TipoEntidade() {
+    }
+    public TipoEntidade(Integer idTipoEntidade, String descricao){
+        this.setIdTipoEntidade(idTipoEntidade);
+        this.setDescricao(descricao);
+    }
+    public TipoEntidade(Integer idTipoEntidade) {
+        this.idTipoEntidade = idTipoEntidade;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Integer getIdTipoEntidade() {
+        return idTipoEntidade;
+    }
+
+    public void setIdTipoEntidade(Integer idTipoEntidade) {
+        this.idTipoEntidade = idTipoEntidade;
     }
 
     public String getDescricao() {
@@ -36,4 +59,30 @@ public class TipoEntidade {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idTipoEntidade != null ? idTipoEntidade.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TipoEntidade)) {
+            return false;
+        }
+        TipoEntidade other = (TipoEntidade) object;
+        if ((this.idTipoEntidade == null && other.idTipoEntidade != null) || (this.idTipoEntidade != null && !this.idTipoEntidade.equals(other.idTipoEntidade))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "modelo.TipoEntidade[ idTipoEntidade=" + idTipoEntidade + " ]";
+    }
+    
 }

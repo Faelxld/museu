@@ -3,6 +3,7 @@ package com.web.museu.services;
 import com.web.museu.domain.Categoria;
 import com.web.museu.dto.CategoriaDTO;
 import com.web.museu.repositories.CategoriaRepository;
+import org.hibernate.annotations.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

@@ -1,31 +1,60 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.web.museu.domain;
 
-import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+
 @Entity
-public class Local {
+@Table(name = "Local")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Local.findAll", query = "SELECT l FROM Local l")
+    , @NamedQuery(name = "Local.findByIdLocal", query = "SELECT l FROM Local l WHERE l.idLocal = :idLocal")
+    , @NamedQuery(name = "Local.findByDescricao", query = "SELECT l FROM Local l WHERE l.descricao = :descricao")})
+public class Local implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private int id;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Basic(optional = false)
+    @Column(name = "idLocal")
+    private Integer idLocal;
+    @Column(name = "descricao")
     private String descricao;
-    @OneToMany
-    @JoinTable(name="evento_local",
-            joinColumns={@JoinColumn(name="local_id",
-                    referencedColumnName="id")},
-            inverseJoinColumns={@JoinColumn(name="evento_id",
-                    referencedColumnName="id")})
-    private List<Evento> Eventos;
+    @OneToMany(mappedBy = "idLocal")
+    private Collection<Evento> eventoCollection;
 
-    public Local(){}
-
-    public int getId() {
-        return id;
+    public Local() {
+    }
+    public Local(Integer idLocal, String descricao){
+        this.setIdLocal(idLocal);
+        this.setDescricao(descricao);
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Local(Integer idLocal) {
+        this.idLocal = idLocal;
+    }
+
+    public Integer getIdLocal() {
+        return idLocal;
+    }
+
+    public void setIdLocal(Integer idLocal) {
+        this.idLocal = idLocal;
     }
 
     public String getDescricao() {
@@ -35,4 +64,39 @@ public class Local {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    @XmlTransient
+    public Collection<Evento> getEventoCollection() {
+        return eventoCollection;
+    }
+
+    public void setEventoCollection(Collection<Evento> eventoCollection) {
+        this.eventoCollection = eventoCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idLocal != null ? idLocal.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Local)) {
+            return false;
+        }
+        Local other = (Local) object;
+        if ((this.idLocal == null && other.idLocal != null) || (this.idLocal != null && !this.idLocal.equals(other.idLocal))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "modelo.Local[ idLocal=" + idLocal + " ]";
+    }
+    
 }

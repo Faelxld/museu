@@ -1,63 +1,78 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.web.museu.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
-import java.util.Timer;
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+
 
 @Entity
+@Table(name = "Evento")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Evento.findAll", query = "SELECT e FROM Evento e")
+    , @NamedQuery(name = "Evento.findByIdEvento", query = "SELECT e FROM Evento e WHERE e.idEvento = :idEvento")
+    , @NamedQuery(name = "Evento.findByData", query = "SELECT e FROM Evento e WHERE e.data = :data")
+    , @NamedQuery(name = "Evento.findByInicioEvento", query = "SELECT e FROM Evento e WHERE e.inicioEvento = :inicioEvento")
+    , @NamedQuery(name = "Evento.findByFimEvento", query = "SELECT e FROM Evento e WHERE e.fimEvento = :fimEvento")})
 public class Evento implements Serializable {
 
-
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   private int id;
-    @Basic
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idEvento")
+    private Integer idEvento;
+    @Column(name = "data")
     @Temporal(TemporalType.DATE)
-   private Date data;
-    @Basic
+    private Date data;
+    @Column(name = "inicioEvento")
     @Temporal(TemporalType.TIME)
-   private Date inicioEvento;
-    @Basic
+    private Date inicioEvento;
+    @Column(name = "fimEvento")
     @Temporal(TemporalType.TIME)
-   private Date fimEvento;
-   @OneToOne
-   @JoinTable(name="entidade_evento",
-            joinColumns={@JoinColumn(name="evento_id",
-                    referencedColumnName="id")},
-            inverseJoinColumns={@JoinColumn(name="entidade_id",
-                    referencedColumnName="id")})
-   private Entidade idSolicitante;
-   @OneToOne
-   @JoinTable(name="evento_local",
-           joinColumns={@JoinColumn(name="evento_id",
-                   referencedColumnName="id")},
-           inverseJoinColumns={@JoinColumn(name="local_id",
-                   referencedColumnName="id")})
-   private Local idLocal;
-   @ManyToMany
-   private List<Peca> pecas;
-    @OneToOne
-    @JoinTable(name="evento_situacao",
-            joinColumns={@JoinColumn(name="evento_id",
-                    referencedColumnName="id")},
-            inverseJoinColumns={@JoinColumn(name="situacao_id",
-                    referencedColumnName="id")})
-    private SituacaoEvento idSituacaoEvento;
+    private Date fimEvento;
+    @JoinColumn(name = "idSituacaoEvento", referencedColumnName = "idSituacaoEvento")
+    @ManyToOne
+    private DefSituacaoEvento idSituacaoEvento;
+    @JoinColumn(name = "idLocal", referencedColumnName = "idLocal")
+    @ManyToOne
+    private Local idLocal;
+    @JoinColumn(name = "idSolicitante", referencedColumnName = "idEntidade")
+    @ManyToOne
+    private Entidade idSolicitante;
+    @OneToMany
+    private Collection<Peca> pecaCollection;
 
-    public Evento(){}
-
-    public void setId(int id) {
-        this.id = id;
+    public Evento() {
     }
 
-    public int getIdEvento() {
-        return id;
+    public Evento(Integer idEvento)
+    {
+        this.idEvento = idEvento;
+    }
+    public Evento(int id, Date data, Date inicioEvento, Date fimEvento, Entidade idSolicitante, Local idLocal, DefSituacaoEvento idSituacaoEvento) {
+        this.idEvento = id;
+        this.data = data;
+        this.inicioEvento = inicioEvento;
+        this.fimEvento = fimEvento;
+        this.idSolicitante = idSolicitante;
+        this.idLocal = idLocal;
+        this.idSituacaoEvento = idSituacaoEvento;
     }
 
-    public void setIdEvento(int idEvento) {
-        this.id = idEvento;
+    public Integer getIdEvento() {
+        return idEvento;
+    }
+
+    public void setIdEvento(Integer idEvento) {
+        this.idEvento = idEvento;
     }
 
     public Date getData() {
@@ -66,30 +81,6 @@ public class Evento implements Serializable {
 
     public void setData(Date data) {
         this.data = data;
-    }
-
-    public Entidade getIdSolicitante() {
-        return idSolicitante;
-    }
-
-    public void setIdSolicitante(Entidade idSolicitante) {
-        this.idSolicitante = idSolicitante;
-    }
-
-    public Local getIdLocal() {
-        return idLocal;
-    }
-
-    public void setIdLocal(Local idLocal) {
-        this.idLocal = idLocal;
-    }
-
-    public SituacaoEvento getIdSituacaoEvento() {
-        return idSituacaoEvento;
-    }
-
-    public void setIdSituacaoEvento(SituacaoEvento idSituacaoEvento) {
-        this.idSituacaoEvento = idSituacaoEvento;
     }
 
     public Date getInicioEvento() {
@@ -106,5 +97,61 @@ public class Evento implements Serializable {
 
     public void setFimEvento(Date fimEvento) {
         this.fimEvento = fimEvento;
+    }
+
+    public DefSituacaoEvento getIdSituacaoEvento() {
+        return idSituacaoEvento;
+    }
+
+    public void setIdSituacaoEvento(DefSituacaoEvento idSituacaoEvento) {
+        this.idSituacaoEvento = idSituacaoEvento;
+    }
+
+    public Local getIdLocal() {
+        return idLocal;
+    }
+
+    public void setIdLocal(Local idLocal) {
+        this.idLocal = idLocal;
+    }
+
+    public Entidade getIdSolicitante() {
+        return idSolicitante;
+    }
+
+    public void setIdSolicitante(Entidade idSolicitante) {
+        this.idSolicitante = idSolicitante;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idEvento != null ? idEvento.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Evento)) {
+            return false;
+        }
+        Evento other = (Evento) object;
+        if ((this.idEvento == null && other.idEvento != null) || (this.idEvento != null && !this.idEvento.equals(other.idEvento))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "modelo.Evento[ idEvento=" + idEvento + " ]";
+    }
+
+    public Collection<Peca> getPecaCollection() {
+        return pecaCollection;
+    }
+
+    public void setPecaCollection(Collection<Peca> pecaCollection) {
+        this.pecaCollection = pecaCollection;
     }
 }
