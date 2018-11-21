@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
-@RequestMapping(value="/peca")
+@RequestMapping(value="/pecas")
 public class PecaResource {
 
     @Autowired
